@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ERLC CSRP Handbook</title>
+<style>
+  :root { --bg:#0b0b0b; --fg:#eaeaea; --muted:#a0a0a0; --chip:#1b1b1b; --ok:#1f6feb; --warn:#e3a008; --bad:#d73a49; --accent:#9ecbff; }
+  html,body { margin:0; padding:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; }
+  header { padding:20px; border-bottom:1px solid #222; }
+  h1,h2,h3 { margin:8px 0; }
+  h1 { font-size:20px; }
+  h2 { font-size:18px; margin-top:24px; }
+  h3 { font-size:16px; margin-top:18px; }
+  .wrap { max-width:1200px; margin:0 auto; padding:16px; }
+  .row { display:flex; gap:16px; flex-wrap:wrap; }
+  .col { flex:1 1 320px; }
+  .card { background:#0f0f0f; border:1px solid #1e1e1e; border-radius:10px; padding:12px 14px; }
+  .pill { display:inline-block; padding:2px 8px; border-radius:999px; background:var(--chip); color:var(--muted); font-size:12px; margin-right:6px; }
+  .sec { border-top:1px dashed #222; padding-top:12px; margin-top:12px; }
+  .mini { color:var(--muted); font-size:13px; }
+  .grid { display:grid; gap:10px; }
+  .offense { padding:12px; border-radius:8px; border:1px solid #1d1d1d; background:#0e0e0e; }
+  .title { font-weight:600; margin-bottom:4px; }
+  .cite { color:var(--muted); font-size:12px; }
+  .good { color:var(--ok); }
+  .bad { color:var(--bad); }
+  .warn { color:var(--warn); }
+  .examples { margin-top:8px; padding:8px; background:#131313; border-radius:6px; border-left:3px solid var(--accent); }
+  .examples-title { font-size:13px; font-weight:600; color:var(--accent); margin-bottom:4px; }
+  .example-list { font-size:13px; color:#ccc; }
+  .example-item { margin-bottom:2px; }
+  .not-counts { margin-top:6px; padding:6px; background:#1a1111; border-radius:4px; border-left:3px solid var(--bad); }
+  .not-title { font-size:12px; font-weight:600; color:var(--bad); margin-bottom:2px; }
+  input[type="search"] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #222; background:#0f0f0f; color:var(--fg); }
+  .k { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:#141414; padding:0 6px; border-radius:6px; }
+  .toc a { color:var(--accent); text-decoration:none; }
+  .toc { display:flex; flex-wrap:wrap; gap:8px; }
+  .toc a { background:#0f0f0f; border:1px solid #1f1f1f; padding:6px 10px; border-radius:8px; transition:background 0.2s; }
+  .toc a:hover { background:#1a1a1a; }
+  footer { color:#888; border-top:1px solid #222; padding:16px; font-size:12px; }
+  .tag { font-size:12px; color:#bbb; margin-bottom:6px; }
+  .penalty { margin-top:8px; padding:6px 8px; background:#141a14; border-radius:4px; border-left:3px solid var(--warn); }
+  .penalty-title { font-size:12px; font-weight:600; color:var(--warn); }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <h1>CSRP law handbook</h1>
+  <p class="mini">
+    accurate to california law; grouped by category; each entry: statute, definition, real-world examples, exclusions, and penalties.
+    this is practical information, not legal advice. However everything was fact checked, verify against cited code sections before relying on ingame.
+  </p>
+  <div class="row">
+    <div class="col">
+      <input id="q" type="search" placeholder="search (e.g., robbery, 211, burglary first degree, petty theft 488, adw 245)" />
+    </div>
+    <div class="col card">
+      <div><span class="pill">defs</span> <span class="k">PC §15</span> crime definition; <span class="k">PC §17</span> felony/misdemeanor/infraction.</div>
+      <div class="mini">felonies use statutory triads; many are wobblers (can be misdemeanor or felony). infractions are non-criminal fines.</div>
+    </div>
+  </div>
+  <div class="toc" style="margin-top:12px;">
+    <a href="#persons">crimes against persons</a>
+    <a href="#property">property & habitation</a>
+    <a href="#sex">sexual offenses</a>
+    <a href="#public">public peace & justice</a>
+    <a href="#weapons">weapons & firearms</a>
+    <a href="#drugs">drugs (health & safety)</a>
+    <a href="#vehicle">vehicle code (driving)</a>
+    <a href="#fraud">fraud & forgery</a>
+    <a href="#misc">other & common</a>
+  </div>
+</header>
+
+<main class="wrap grid" id="list">
+
+  <!-- ===== DEFINITIONS ===== -->
+  <section class="card">
+    <h2 id="definitions">definitions & classes</h2>
+    <div class="offense">
+      <div class="title">crime / public offense</div>
+      <div class="tag">PC §15</div>
+      <div>act or omission violating a law with a punishment attached (death, imprisonment, fine, removal from office, or disqualification).</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• stealing property (theft)</div>
+          <div class="example-item">• hitting someone (battery)</div>
+          <div class="example-item">• driving under influence</div>
+        </div>
+      </div>
+      <div class="not-counts">
+        <div class="not-title">what doesn't count:</div>
+        <div style="font-size:12px; color:#ccc;">• civil contract violations without criminal penalties • parking violations (administrative) • school disciplinary rules</div>
+      </div>
+    </div>
+    <div class="offense">
+      <div class="title">classes</div>
+      <div class="tag">PC §17</div>
+      <div><b>felony</b>: punishable by death, state prison, or county jail under 1170(h). <b>misdemeanor</b>: other crimes not infractions; up to 1 year jail unless stated. <b>infraction</b>: non-criminal, fine only.</div>
+      <div class="examples">
+        <div class="examples-title">examples by class:</div>
+        <div class="example-list">
+          <div class="example-item">• <b>felonies:</b> murder, robbery, burglary, grand theft</div>
+          <div class="example-item">• <b>misdemeanors:</b> simple assault, petty theft, DUI (1st offense)</div>
+          <div class="example-item">• <b>infractions:</b> speeding tickets, parking violations, seatbelt violations</div>
+          <div class="example-item">• <b>wobblers:</b> assault with deadly weapon, forgery, some drug possession</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PERSONS ===== -->
+  <section class="card sec" id="persons">
+    <h2>crimes against persons</h2>
+
+    <div class="offense">
+      <div class="title">murder (first degree)</div>
+      <div class="tag">PC §187, §189–§190</div>
+      <div>unlawful killing with malice; first degree includes willful/deliberate/premeditated, certain felony-murder.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• planning and carrying out a shooting</div>
+          <div class="example-item">• killing during a robbery, burglary, rape, or kidnapping</div>
+          <div class="example-item">• using poison or explosive device</div>
+          <div class="example-item">• killing police officer in line of duty</div>
+          <div class="example-item">• lying in wait to ambush someone</div>
+        </div>
+      </div>
+      <div class="not-counts">
+        <div class="not-title">what doesn't count:</div>
+        <div style="font-size:12px; color:#ccc;">• killing in lawful self-defense • accidental death without malice • heat of passion killing (voluntary manslaughter instead)</div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">25-to-life; special circumstances: LWOP or death (moratorium in effect, statute remains).</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">murder (second degree)</div>
+      <div class="tag">PC §187, §190</div>
+      <div>malicious killing not meeting first-degree criteria.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• shooting someone in anger without premeditation</div>
+          <div class="example-item">• killing during a fight with malicious intent</div>
+          <div class="example-item">• reckless conduct showing implied malice (firing into crowd)</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">15-to-life (higher if peace officer victim under specified facts).</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">manslaughter — voluntary</div>
+      <div class="tag">PC §192(a)</div>
+      <div>killing upon sudden quarrel or heat of passion.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• finding spouse in bed with another and killing in rage</div>
+          <div class="example-item">• bar fight escalating to fatal violence</div>
+          <div class="example-item">• road rage incident resulting in death</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">3/6/11 years state prison.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">kidnapping</div>
+      <div class="tag">PC §207</div>
+      <div>forcible movement/asportation of a person without consent.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• forcing someone into a car at gunpoint</div>
+          <div class="example-item">• tying someone up and moving them to another location</div>
+          <div class="example-item">• tricking child into car and driving away</div>
+          <div class="example-item">• holding ex-partner against their will in basement</div>
+        </div>
+      </div>
+      <div class="not-counts">
+        <div class="not-title">what doesn't count:</div>
+        <div style="font-size:12px; color:#ccc;">• brief movement during another crime (robbery) • consensual movement • parental custody of own minor child (usually)</div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">typically 3/5/8 years; aggravated forms higher.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">robbery — first degree</div>
+      <div class="tag">PC §211; degrees §212.5; penalties §213</div>
+      <div>taking property from person/immediate presence by force or fear; first degree in inhabited dwelling, driver/passenger of transit, or ATM scenarios.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• home invasion robbery while family is present</div>
+          <div class="example-item">• robbing taxi or uber driver</div>
+          <div class="example-item">• mugging someone at an ATM</div>
+          <div class="example-item">• robbing bus passengers</div>
+        </div>
+      </div>
+      <div class="not-counts">
+        <div class="not-title">what doesn't count:</div>
+        <div style="font-size:12px; color:#ccc;">• stealing after victim already left (theft, not robbery) • taking property without force/fear • shoplifting without confrontation</div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">3/4/6 years; 3/6/9 if in inhabited structure with 2+ accomplices.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">robbery — second degree</div>
+      <div class="tag">PC §211, §212.5(c), §213(a)(2)</div>
+      <div>all robberies not in first-degree category.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• mugging someone on street</div>
+          <div class="example-item">• robbing store clerk at gunpoint</div>
+          <div class="example-item">• purse snatching with force/struggle</div>
+          <div class="example-item">• threatening store customer to take their wallet</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">2/3/5 years.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">assault (simple)</div>
+      <div class="tag">PC §240</div>
+      <div>unlawful attempt with present ability to commit violent injury.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• swinging fist at someone (missing or connecting)</div>
+          <div class="example-item">• throwing object at person within range</div>
+          <div class="example-item">• threatening with raised fist when close enough to hit</div>
+        </div>
+      </div>
+      <div class="not-counts">
+        <div class="not-title">what doesn't count:</div>
+        <div style="font-size:12px; color:#ccc;">• verbal threats alone without physical ability • accidental contact • threatening from too far away to actually hurt someone</div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">misdemeanor; up to 6 months county jail and/or fine (~$1,000).</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">battery (simple)</div>
+      <div class="tag">PC §242</div>
+      <div>willful and unlawful use of force or violence upon another.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• punching, slapping, or kicking someone</div>
+          <div class="example-item">• spitting on another person</div>
+          <div class="example-item">• pushing someone during argument</div>
+          <div class="example-item">• throwing drink on someone</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">misdemeanor; up to 6 months jail and/or up to ~$2,000 fine. enhanced if injury/protected victim.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">assault with a deadly weapon (adw)</div>
+      <div class="tag">PC §245(a)(1)</div>
+      <div>assault with deadly weapon/instrument other than a firearm, or force likely to cause great bodily injury.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• attacking with knife, bat, or hammer</div>
+          <div class="example-item">• hitting with car (vehicle as weapon)</div>
+          <div class="example-item">• throwing heavy objects like bricks</div>
+          <div class="example-item">• attacking with broken bottle</div>
+          <div class="example-item">• kicking someone in head while wearing boots</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">wobbler; felony 2/3/4 years state prison or up to 1 year county; fines possible.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROPERTY & HABITATION ===== -->
+  <section class="card sec" id="property">
+    <h2>property & habitation</h2>
+
+    <div class="offense">
+      <div class="title">burglary — first degree (residential)</div>
+      <div class="tag">PC §459; degrees §460; penalties §461</div>
+      <div>entry of an inhabited dwelling with intent to commit theft or any felony.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• breaking into house to steal electronics</div>
+          <div class="example-item">• entering apartment through unlocked door to commit rape</div>
+          <div class="example-item">• climbing through window of inhabited mobile home</div>
+          <div class="example-item">• entering hotel room to steal guest's belongings</div>
+        </div>
+      </div>
+      <div class="not-counts">
+        <div class="not-title">what doesn't count:</div>
+        <div style="font-size:12px; color:#ccc;">• entering without criminal intent, then deciding to steal • breaking into abandoned house • entering open-air areas not enclosed structures</div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">2/4/6 years (state prison).</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">burglary — second degree (commercial/other)</div>
+      <div class="tag">PC §459–§461</div>
+      <div>burglary of any non-residence structure.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• breaking into store after hours to steal merchandise</div>
+          <div class="example-item">• entering office building to steal computers</div>
+          <div class="example-item">• breaking into warehouse or storage unit</div>
+          <div class="example-item">• entering someone's garage or shed to steal tools</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">wobbler; felony 16 months/2/3 years county; misdemeanor up to 1 year; fines possible.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">theft — petty</div>
+      <div class="tag">PC §484, §488</div>
+      <div>theft of property with value generally < $950 (subject to changes & special rules).</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• stealing clothes worth $300 from store</div>
+          <div class="example-item">• taking someone's bike valued at $400</div>
+          <div class="example-item">• pocketing $200 cash from unlocked car</div>
+          <div class="example-item">• stealing groceries worth $50</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">usually misdemeanor; up to 6 months jail/fine; priors/props can alter.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">theft — grand</div>
+      <div class="tag">PC §487</div>
+      <div>theft meeting value thresholds or specific property categories.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• stealing jewelry worth $2,000</div>
+          <div class="example-item">• taking someone's car (regardless of value)</div>
+          <div class="example-item">• stealing livestock (horses, cattle)</div>
+          <div class="example-item">• theft of firearm (any value)</div>
+          <div class="example-item">• stealing $500+ from person directly</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">wobbler; typical felony triad 16/24/36 months unless specified.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">shoplifting (during business hours)</div>
+      <div class="tag">PC §459.5</div>
+      <div>entering commercial establishment during regular hours with intent to commit larceny where value ≤ $950.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• concealing items in purse at department store</div>
+          <div class="example-item">• switching price tags to pay less</div>
+          <div class="example-item">• eating food in grocery store without paying</div>
+          <div class="example-item">• walking out with merchandise hidden in clothing</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">generally misdemeanor; exceptions for serious/violent priors. repeat-theft rules may enhance under later measures.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">vandalism</div>
+      <div class="tag">PC §594</div>
+      <div>maliciously defacing/damaging/destroying property not your own.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• spray painting graffiti on building walls</div>
+          <div class="example-item">• keying someone's car</div>
+          <div class="example-item">• breaking windows out of anger</div>
+          <div class="example-item">• carving initials into park bench</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">wobbler depending on damage; fines, jail/prison possible.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">receiving stolen property</div>
+      <div class="tag">PC §496</div>
+      <div>buying/receiving/concealing/selling property knowing it to be stolen.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• buying obviously stolen electronics from stranger</div>
+          <div class="example-item">• accepting "hot" car parts knowing they're stolen</div>
+          <div class="example-item">• helping friend hide stolen merchandise</div>
+          <div class="example-item">• purchasing expensive items well below market value suspiciously</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">wobbler; value and priors affect charge.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SEXUAL OFFENSES ===== -->
+  <section class="card sec" id="sex">
+    <h2>sexual offenses</h2>
+
+    <div class="offense">
+      <div class="title">rape</div>
+      <div class="tag">PC §261</div>
+      <div>non-consensual sexual intercourse by force/violence/duress/menace or where consent is legally invalid (e.g., intoxication, unconscious).</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• sexual intercourse using physical force</div>
+          <div class="example-item">• intercourse with unconscious person</div>
+          <div class="example-item">• intercourse with severely intoxicated person unable to consent</div>
+          <div class="example-item">• using threats of harm to coerce intercourse</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">felony; years vary with circumstances and enhancements.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">lewd acts with a minor</div>
+      <div class="tag">PC §288</div>
+      <div>lewd or lascivious acts with a child under 14 (or specified ages with aggravators).</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• inappropriate touching of child's private areas</div>
+          <div class="example-item">• having child touch adult inappropriately</div>
+          <div class="example-item">• sexual conduct with child under 14</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">felony; lengthy state prison terms; registration requirements.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">indecent exposure</div>
+      <div class="tag">PC §314</div>
+      <div>willfully and lewdly exposing private parts where others are present and offended.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• exposing genitals in public park</div>
+          <div class="example-item">• "flashing" strangers on street</div>
+          <div class="example-item">• masturbating in view of others</div>
+        </div>
+      </div>
+      <div class="not-counts">
+        <div class="not-title">what doesn't count:</div>
+        <div style="font-size:12px; color:#ccc;">• breastfeeding in public • accidental exposure • nudity in appropriate settings (nude beaches, own home)</div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">misdemeanor/felony depending on priors/circumstances.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PUBLIC PEACE & JUSTICE ===== -->
+  <section class="card sec" id="public">
+    <h2>public peace & justice</h2>
+
+    <div class="offense">
+      <div class="title">disturbing the peace</div>
+      <div class="tag">PC §415</div>
+      <div>fighting in public; loud/unreasonable noise; offensive words likely to provoke immediate violence.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• loud party music at 3am disturbing neighbors</div>
+          <div class="example-item">• fighting in public street</div>
+          <div class="example-item">• yelling racial slurs to provoke fight</div>
+          <div class="example-item">• shouting obscenities in crowded area</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">misdemeanor/infraction depending facts.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">criminal threats</div>
+      <div class="tag">PC §422</div>
+      <div>threatening death/gbh with specific intent it be taken as a threat, causing sustained fear; can be written, verbal, or electronic.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• texting "I'm going to kill you" to ex-partner</div>
+          <div class="example-item">• leaving voicemail threatening to burn down someone's house</div>
+          <div class="example-item">• email threatening to harm someone's family</div>
+          <div class="example-item">• verbally threatening to shoot coworker</div>
+        </div>
+      </div>
+      <div class="not-counts">
+        <div class="not-title">what doesn't count:</div>
+        <div style="font-size:12px; color:#ccc;">• vague threats without specifics • obvious jokes/hyperbole • threats that don't cause actual fear</div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">wobbler; up to felony years; strike in some cases.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">false imprisonment</div>
+      <div class="tag">PC §236–§237</div>
+      <div>unlawful violation of personal liberty (restraining/detaining).</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• locking someone in room against their will</div>
+          <div class="example-item">• blocking car door to prevent someone leaving</div>
+          <div class="example-item">• tying someone up during argument</div>
+          <div class="example-item">• physically restraining person from leaving area</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">misdemeanor or felony depending aggravators (violence/fraud/deceit).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WEAPONS ===== -->
+  <section class="card sec" id="weapons">
+    <h2>weapons & firearms</h2>
+
+    <div class="offense">
+      <div class="title">firearm prohibitions / possession</div>
+      <div class="tag">PC §29800, §29805, §25400 (carry concealed), §25850 (loaded firearm in public)</div>
+      <div>various bans on possession by felons/certain misdemeanants; rules on concealed/loaded carry.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• convicted felon found with handgun</div>
+          <div class="example-item">• carrying concealed pistol without permit</div>
+          <div class="example-item">• loaded rifle in car on public street</div>
+          <div class="example-item">• domestic violence restraining order subject with gun</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">mix of misdemeanors/felonies; enhancements possible.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">assault weapons / .50 bmg rifles</div>
+      <div class="tag">PC §30600 et seq.</div>
+      <div>manufacture/sale/transport/possession restrictions with exceptions.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• possessing unregistered AR-15 with banned features</div>
+          <div class="example-item">• selling high-capacity magazines</div>
+          <div class="example-item">• manufacturing assault weapons without license</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">felonies with significant terms.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DRUGS (HEALTH & SAFETY CODE) ===== -->
+  <section class="card sec" id="drugs">
+    <h2>drug offenses (health & safety code)</h2>
+
+    <div class="offense">
+      <div class="title">possession of controlled substance</div>
+      <div class="tag">H&S §11350 / §11377 (by substance)</div>
+      <div>unlawful possession of listed substances.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• having cocaine in pocket during traffic stop</div>
+          <div class="example-item">• possessing methamphetamine in backpack</div>
+          <div class="example-item">• heroin found in car console</div>
+          <div class="example-item">• prescription pills without valid prescription</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">commonly misdemeanor; priors/sales weight/circumstances can elevate.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">possession for sale / sales / transport</div>
+      <div class="tag">H&S §11351, §11352, §11359, §11360, §11378, §11379 (varies by drug)</div>
+      <div>possession with intent to sell; actual sale; transport/distribution.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• large quantities packaged in small baggies</div>
+          <div class="example-item">• scales, cash, and drugs found together</div>
+          <div class="example-item">• selling drugs to undercover officer</div>
+          <div class="example-item">• transporting drugs across county lines</div>
+          <div class="example-item">• text messages arranging drug sales</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">typically felonies with multi-year terms; enhancements by weight/locations.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VEHICLE CODE ===== -->
+  <section class="card sec" id="vehicle">
+    <h2>vehicle code (driving)</h2>
+
+    <div class="offense">
+      <div class="title">dui (alcohol/drugs)</div>
+      <div class="tag">VC §23152, §23153 (injury)</div>
+      <div>driving under influence or 0.08%+ bac; injury version elevates penalties.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• driving with 0.08% or higher blood alcohol</div>
+          <div class="example-item">• driving impaired by marijuana, prescription drugs</div>
+          <div class="example-item">• causing accident while drunk/high</div>
+          <div class="example-item">• failing field sobriety tests due to impairment</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">misdemeanors for first offenses (fines, programs, license actions, possible jail); felonies for injury/multiple priors.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">hit & run</div>
+      <div class="tag">VC §20002 (property), §20001 (injury/death)</div>
+      <div>leaving scene without required info/aid.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• backing into parked car and driving away</div>
+          <div class="example-item">• hitting pedestrian and fleeing scene</div>
+          <div class="example-item">• side-swiping car on freeway and not stopping</div>
+          <div class="example-item">• leaving after injury accident without giving info</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">property = misdemeanor; injury/death can be felony.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">reckless driving</div>
+      <div class="tag">VC §23103</div>
+      <div>willful/wanton disregard for safety.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• racing through residential neighborhood</div>
+          <div class="example-item">• weaving through traffic at high speeds</div>
+          <div class="example-item">• doing donuts in parking lot with people around</div>
+          <div class="example-item">• running red lights repeatedly</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">misdemeanor; higher if injury.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">infractions (common)</div>
+      <div class="tag">VC (various)</div>
+      <div>speeding, stop sign, equipment, phone use, etc. fine-only; not crimes.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• driving 80 mph in 65 mph zone</div>
+          <div class="example-item">• rolling through stop sign</div>
+          <div class="example-item">• texting while driving</div>
+          <div class="example-item">• expired registration or broken tail light</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">fines/points; traffic school eligibility varies.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FRAUD & FORGERY ===== -->
+  <section class="card sec" id="fraud">
+    <h2>fraud & forgery</h2>
+
+    <div class="offense">
+      <div class="title">forgery</div>
+      <div class="tag">PC §470</div>
+      <div>signing another's name or altering/forging certain documents with intent to defraud.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• signing someone else's name on checks</div>
+          <div class="example-item">• altering dollar amounts on contracts</div>
+          <div class="example-item">• creating fake driver's license</div>
+          <div class="example-item">• forging signature on legal documents</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">wobbler; amount/type can affect charge.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">embezzlement</div>
+      <div class="tag">PC §503–§515</div>
+      <div>fraudulent appropriation of property by a person to whom it was entrusted.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• bookkeeper stealing from company accounts</div>
+          <div class="example-item">• cashier pocketing register money</div>
+          <div class="example-item">• treasurer using club funds for personal expenses</div>
+          <div class="example-item">• employee selling company equipment for personal gain</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">tracks petty/grand theft thresholds.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">extortion</div>
+      <div class="tag">PC §518–§527</div>
+      <div>obtaining property or official act via force/fear or under color of official right.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• threatening to release embarrassing photos unless paid</div>
+          <div class="example-item">• demanding protection money from businesses</div>
+          <div class="example-item">• threatening to harm family unless victim pays</div>
+          <div class="example-item">• corrupt official demanding bribes</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">felony (terms vary).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MISC / COMMON ===== -->
+  <section class="card sec" id="misc">
+    <h2>other common offenses</h2>
+
+    <div class="offense">
+      <div class="title">trespass</div>
+      <div class="tag">PC §602</div>
+      <div>entering/remaining without permission in specified ways/places.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• entering private property after being told to leave</div>
+          <div class="example-item">• climbing fence to access restricted area</div>
+          <div class="example-item">• remaining in store after closing time</div>
+          <div class="example-item">• entering construction site without authorization</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">generally misdemeanor/infraction; facts matter.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">arson</div>
+      <div class="tag">PC §451 (willful), §452 (reckless)</div>
+      <div>maliciously or recklessly setting fire to property/structures/forest land.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• intentionally setting house on fire</div>
+          <div class="example-item">• burning down ex-partner's car</div>
+          <div class="example-item">• starting wildfire through reckless campfire</div>
+          <div class="example-item">• burning business for insurance money</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">felonies; terms vary by damage/injury.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">public intoxication</div>
+      <div class="tag">PC §647(f)</div>
+      <div>in public under the influence to the degree you can't care for safety/obstructing public ways.</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• passed out drunk on sidewalk</div>
+          <div class="example-item">• stumbling into traffic while intoxicated</div>
+          <div class="example-item">• blocking store entrance while heavily drunk</div>
+          <div class="example-item">• unable to care for own safety due to intoxication</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">misdemeanor.</div>
+      </div>
+    </div>
+
+    <div class="offense">
+      <div class="title">prostitution / solicitation</div>
+      <div class="tag">PC §647(b) (note: statutes evolve)</div>
+      <div>engaging in or soliciting act of prostitution (definitions/defenses nuanced by statute changes).</div>
+      <div class="examples">
+        <div class="examples-title">examples that count:</div>
+        <div class="example-list">
+          <div class="example-item">• offering sex for money</div>
+          <div class="example-item">• asking to hire someone for sexual services</div>
+          <div class="example-item">• agreeing to exchange money for sexual acts</div>
+        </div>
+      </div>
+      <div class="penalty">
+        <div class="penalty-title">penalty:</div>
+        <div style="font-size:13px;">generally misdemeanor; programs/alternatives may apply.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div><b>penalty key:</b> "x/y/z years" = statutory triad. wobblers can be filed as misdemeanor or felony.</div>
+  <div style="margin-top:6px">always confirm current text in the california codes before relying. this file summarizes, it doesn't replace the statutes.</div>
+  <div style="margin-top:6px" class="mini">sources aligned with: PC §15, §17; murder §187/§190; burglary §459–§461; robbery §211/§212.5/§213; assault §240; battery §242; ADW §245(a)(1); infractions overview; plus H&S and VC provisions listed.</div>
+</footer>
+
+<script>
+  const q = document.getElementById('q');
+  const list = document.getElementById('list');
+  const items = Array.from(list.querySelectorAll('.offense'));
+  q.addEventListener('input', () => {
+    const term = q.value.trim().toLowerCase();
+    items.forEach(el => {
+      const txt = el.innerText.toLowerCase();
+      el.style.display = term && !txt.includes(term) ? 'none' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
